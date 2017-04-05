@@ -387,65 +387,18 @@
 
       
         
-          
-            <p>搜狐：</p>
+          <p>搜狐：</p>
+<p>有小伙伴接到了搜狐面试的电话，替他开心的同时，也取经成功，面试问题回忆版如下：</p>
 <ul>
 <li>[ ] <strong>JQuery选择器$()的工作原理</strong></li>
-<li>原来在加入jquery的js这个文件时，实际上是执行了一个函数，在这个函数里己经初始化了$和JQuery变量，可以看出创建jQuery.fn.init这样一个函数返回给$， 这样是可以使用$实例了，</li>
-<li>选择器写成$(‘#id’)的时候最快，相当于执行了一次getElemenById，后边的程序就不用再执行了.</li>
-<li>如果我们的选择器更加复杂的话，比如我们需要id下的CSS为className,写法为$(‘#id.className’)和$(‘#id’).find(‘.className’);都是先去查找执行init,找到id了，立刻返回return。然后再去执行find（）函数方法。</li>
-<li>但是如果直接$(‘.className’）的话，这样的是去执行init函数，然后到全局全文里，全部的dom对象一个个查找遍历。效率相比前面的低很多。</li>
-<li>[ ] <strong>一个ul中有一千个li，如何给这一千个li绑定一个鼠标点击事件，当鼠标点击时alert出这个li的内容和li的位置坐标xy[。</strong>]<a href="http://www.cnblogs.com/xiaohuihui123/p/4812902.html" target="_blank" rel="external">link</a></li>
-<li>我们一般首先想到的思路是，for循环，遍历1000次。这样的话1000次的循环，效率很低，如何提高。</li>
-<li>可以考虑利用<strong>事件冒泡特性</strong>提高效率。主要是利用<strong>事件代理</strong>。<a href="http://www.tuicool.com/articles/jQZj6zB" target="_blank" rel="external">事件代理</a>（EventDelegation），又称之为事件委托。是JavaScript中常用绑定事件的常用技巧。顾名思义，“事件代理”即是++把原本需要绑定的事件委托给父元素++，让父元素担当事件监听的职务。</li>
-<li>为什么要这么做？众所周知，DOM操作是十分消耗性能的，所以重复的事件绑定简直是性能杀手。而事件代理的核心思想，就是通过尽量少的绑定，去监听尽量多的事件。</li>
-<li><p>总结：好处1，提高性能。好处2，新添加的元素还会有之前的事件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;</div><div class="line">&lt;title&gt;hehe&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div&gt;</div><div class="line">&lt;ul id=&quot;ulItem&quot;&gt;</div><div class="line">&lt;li id=&quot;li1&quot;&gt;1&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li2&quot;&gt;2&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li3&quot;&gt;3&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li4&quot;&gt;4&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li5&quot;&gt;5&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li6&quot;&gt;6&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li7&quot;&gt;7&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li8&quot;&gt;8&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li9&quot;&gt;9&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li10&quot;&gt;10&lt;/li&gt;</div><div class="line">&lt;li id=&quot;li11&quot;&gt;11&lt;/li&gt;</div><div class="line">...</div><div class="line">&lt;li id=&quot;li1000&quot;&gt;1000&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt; </div><div class="line">//取得ul列表</div><div class="line">var ulItem = document.getElementById(&quot;ulItem&quot;);</div><div class="line">ulItem.onclick = function(e)&#123;</div><div class="line">	//取得点击事件</div><div class="line">	e = e || window.event;//这一行及下一行是为兼容IE8及以下版本</div><div class="line">	var target = e.target || e.srcElement;</div><div class="line">	if(target.tagName.toLowerCase() === &quot;li&quot;)&#123;</div><div class="line">		alert(target.innerHTML);</div><div class="line">		alert(&quot;位置为：&quot;+getElementPosition(target).x+&quot;,&quot;+getElementPosition(target).y);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">function getElementPosition(e)&#123;</div><div class="line">	var x=0,y=0;</div><div class="line">	while(e != null)&#123;</div><div class="line">		x += e.offsetLeft;</div><div class="line">		y += e.offsetTop;</div><div class="line">		e = e.offsetParent;</div><div class="line">	&#125;</div><div class="line">	return &#123;x:x, y:y&#125;;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt; </div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>[ ] <strong>谈一下Jquery中的bind(),live(),delegate(),on()的区别？</strong><br><a href="http://www.cnblogs.com/chenlogin/p/5105710.html" target="_blank" rel="external">link</a></p>
-</li>
-<li>使用.bind()方法是很浪费资源的，因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序（在选择元素上绑定一个或多个事件的事件处理函数。）</li>
-<li>建议停止使用.live()方法，因为它已经被弃用了，由于他有很多的问题（给所有匹配的元素附加一个事件处理函数）</li>
-<li>.delegate()方法“很划算”用来处理性能和响应动态添加元素的时候</li>
-<li>新的.on()方法主要是可以实现.bind().live()甚至.delegate()的功能</li>
-<li>建议使用.on()方法，如果你的项目使用了1.7+的jQuery的话</li>
-<li>[ ] <strong>如何去除数组中的重复元素</strong> <a href="http://www.codeceo.com/article/javascript-delete-array.html" target="_blank" rel="external">link</a></li>
-</ul>
-<ol>
-<li><p>遍历数组法：最简单的去重方法，实现思路：新建一新数组，遍历传入数组，值不在新数组就加入该新数组中；注意点：判断值是否在数组的方法“indexOf”是ECMAScript5方法，IE8以下不支持，需多写一些兼容低版本浏览器代码，源码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 最简单数组去重法</div><div class="line">function unique1(array)&#123;</div><div class="line">  var n = []; //一个新的临时数组</div><div class="line">  //遍历当前数组</div><div class="line">  for(var i = 0; i &lt; array.length; i++)&#123;</div><div class="line">    //如果当前数组的第i已经保存进了临时数组，那么跳过，</div><div class="line">    //否则把当前项push到临时数组里面</div><div class="line">    if (n.indexOf(array[i]) == -1) n.push(array[i]);</div><div class="line">  &#125;</div><div class="line">  return n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>对象键值对法：该方法执行的速度比其他任何方法都快，就是占用的内存大一些；实现思路：新建一js对象以及新数组，遍历传入数组时，判断值是否为js对象的键，不是的话给对象新增该键并放入新数组。注意点： 判断是否为js对象键时，会自动对传入的键执行“toString()”，不同的键可能会被误认为一样；例如： a[1]、a[“1”] 。解决上述问题还是得调用“indexOf”。</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 速度最快， 占空间最多（空间换时间）</div><div class="line">function unique2(array)&#123;</div><div class="line">  var n = &#123;&#125;, r = [], len = array.length, val, type;</div><div class="line">    for (var i = 0; i &lt; array.length; i++) &#123;</div><div class="line">        val = array[i];</div><div class="line">        type = typeof val;</div><div class="line">        if (!n[val]) &#123;</div><div class="line">            n[val] = [type];</div><div class="line">            r.push(val);</div><div class="line">        &#125; else if (n[val].indexOf(type) &lt; 0) &#123;</div><div class="line">            n[val].push(type);</div><div class="line">            r.push(val);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return r;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>数组下标判断法：还是得调用“indexOf”性能跟方法1差不多，实现思路：如果当前数组的第i项在当前数组中第一次出现的位置不是i，那么表示第i项是重复的，忽略掉。否则存入结果数组。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function unique3(array)&#123;</div><div class="line">  var n = [array[0]]; //结果数组</div><div class="line">  //从第二项开始遍历</div><div class="line">  for(var i = 1; i &lt; array.length; i++) &#123;</div><div class="line">    //如果当前数组的第i项在当前数组中第一次出现的位置不是i，</div><div class="line">    //那么表示第i项是重复的，忽略掉。否则存入结果数组</div><div class="line">    if (array.indexOf(array[i]) == i) n.push(array[i]);</div><div class="line">  &#125;</div><div class="line">  return n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>排序后相邻去除法：虽然原生数组的”sort”方法排序结果不怎么靠谱，但在不注重顺序的去重里该缺点毫无影响。实现思路：给传入数组排序，排序后相同值相邻，然后遍历时新数组只加入不与前一值重复的值。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 将相同的值相邻，然后遍历去除重复值</div><div class="line">function unique4(array)&#123;</div><div class="line">  array.sort(); </div><div class="line">  var re=[array[0]];</div><div class="line">  for(var i = 1; i &lt; array.length; i++)&#123;</div><div class="line">    if( array[i] !== re[re.length-1])</div><div class="line">    &#123;</div><div class="line">      re.push(array[i]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return re;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>优化遍历数组法：该方法的实现代码相当酷炫；实现思路：获取没重复的最右一值放入新数组。（检测到有重复值时终止当前循环同时进入顶层循环的下一轮判断）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 思路：获取没重复的最右一值放入新数组</div><div class="line">function unique5(array)&#123;</div><div class="line">  var r = [];</div><div class="line">  for(var i = 0, l = array.length; i &lt; l; i++) &#123;</div><div class="line">    for(var j = i + 1; j &lt; l; j++)</div><div class="line">      if (array[i] === array[j]) j = ++i;</div><div class="line">    r.push(array[i]);</div><div class="line">  &#125;</div><div class="line">  return r;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>[ ] <strong>如何确定单链表是否有环</strong><a href="http://blog.csdn.net/u013111674/article/details/41249375" target="_blank" rel="external">link</a></li>
-<li>给定一个单链表，只给出头指针h：</li>
-<li>如何知道环的长度？</li>
-<li>如何找出环的连接点在哪里？</li>
-<li>带环链表的长度是多少？</li>
-</ul>
-<ol>
-<li>对于问题1，使用追赶的方法，设定两个指针slow、fast，从头指针开始，每次分别前进1步、2步。如存在环，则两者相遇；如不存在环，fast遇到NULL退出。</li>
-<li>对于问题2，记录下问题1的碰撞点p，slow、fast从该点开始，再次碰撞所走过的操作数就是环的长度s。</li>
-<li>问题3：有定理：碰撞点p到连接点的距离=头指针到连接点的距离，因此，分别从碰撞点、头指针开始走，相遇的那个点就是连接点。(证明在后面附注)</li>
-<li>问题3中已经求出连接点距离头指针的长度，加上问题2中求出的环的长度，二者之和就是带环单链表的长度</li>
-</ol>
-
-          
+<li>原来在加入jquery的js这个文件时，实际上是执行了一个函数，在这个函数里己经初始化了$和JQuery变量，可以看出创建jQuery.fn.init这样一个函数返回给$， 这样是可以使用$实例了，
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/30/mianshi_1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -596,37 +549,17 @@
 
       
         
-          
-            <p>搭建好了自己的独立博客，接下来就是撰写博客啦！</p>
+          <p>搭建好了自己的独立博客，接下来就是撰写博客啦！</p>
 <p>本文主要使用的Markdown语法写文章，其主要的步骤如下：</p>
 <h3 id="新建博客"><a href="#新建博客" class="headerlink" title="新建博客"></a>新建博客</h3><p>在你的博客目录blog下键入命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new post <span class="string">"title"</span></div></pre></td></tr></table></figure>
-<p>如果想写一篇草稿[不发表]，那么可以键入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new draft <span class="string">"title"</span></div></pre></td></tr></table></figure>
-<p>例如：</p>
-<p>我们想要创建一篇名为howtonew的博文</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new post howtonew</div></pre></td></tr></table></figure>
-<h3 id="修改博客的配置"><a href="#修改博客的配置" class="headerlink" title="修改博客的配置"></a>修改博客的配置</h3><p>创建完成后，在对应的blog/source/_post目录下找到howtonew.md文件，我们可以用任何编辑器打开这个文件[我选用的是记事本]，post模板会自动帮我们生成yaml文件头：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line"></div><div class="line">title: howtonew</div><div class="line">date: 2017-03-29 12:31:30</div><div class="line"></div><div class="line">tags:</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>其中：其中 title 是博文的标题，我们可以改成「如何新建和撰写博客」；<br>tags 是博文的标签，我们可以加上「demo」、「git」两个标签；<br>这里，我们需要自己增加categories分类；<br>具体配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line"></div><div class="line">title: 如何新建和撰写博客 #这里是标题</div><div class="line">date: 2017-03-29 12:31:30</div><div class="line"></div><div class="line">categories: # 这里写的分类会自动汇集到 categories 页面上，分类可以多级</div><div class="line">    -实用工具</div><div class="line">    -创建博客 </div><div class="line">tags: # 这里写的标签会自动汇集到 tags 页面上</div><div class="line">    -demo</div><div class="line">    -git</div><div class="line">---</div></pre></td></tr></table></figure>
-<h3 id="编辑文章内容"><a href="#编辑文章内容" class="headerlink" title="编辑文章内容"></a>编辑文章内容</h3><p>添加好上述配置后，就可以安心写文章了。</p>
-<p>当然，你也可以借助于<strong>有道云笔记</strong>进行编写：新建–Markdown，然后就可以编辑啦！该方法可以在文档右侧实时看到编辑效果哟~</p>
-<p>编辑完成后将该文档下载，放在对应的blog/source/_post目录下即可以了~超级方便！</p>
-<h3 id="测试及部署"><a href="#测试及部署" class="headerlink" title="测试及部署"></a>测试及部署</h3><p>文章写好后，可以进行本地测试，测试完成后部署发布到Github中。</p>
-<h4 id="本地测试："><a href="#本地测试：" class="headerlink" title="本地测试："></a>本地测试：</h4><p>在终端上定位到blog目录下，执行命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s</div></pre></td></tr></table></figure>
-<p>在浏览器输入<strong><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></strong>即可看到博客的效果。如果出现乱码，请参考博文：</p>
-<p><strong><a href="https://makeefforts.github.io/2017/03/29/luanma/" target="_blank" rel="external">《如何解决博文出现乱码的现象》</a></strong></p>
-<h4 id="发布到GithubPages："><a href="#发布到GithubPages：" class="headerlink" title="发布到GithubPages："></a>发布到GithubPages：</h4><p>在终端输入下面的命令完成安装自动部署发布工具：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>在本地确认博客效果后，就可以将md文件生成静态网页上传至GithubPages，步骤如下：</p>
-<p>在终端定位到blog目录下，执行git命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">hexo  clean  <span class="comment">#清楚网页缓存</span></div><div class="line">hexo  g      <span class="comment">#生成静态网页</span></div><div class="line">hexo d       <span class="comment">#开始部署</span></div><div class="line">//当然也可以使用一次性命令：</div><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure>
-<p>注意：首次部署时，需要你输入Github的用户名和密码。</p>
-<h3 id="最后一步"><a href="#最后一步" class="headerlink" title="最后一步"></a>最后一步</h3><p>在浏览器上输入<strong><a href="http://xxx.github.io" target="_blank" rel="external">http://xxx.github.io</a></strong>，就可以看到属于你的博客了。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/29/howtonew/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -777,16 +710,15 @@
 
       
         
-          
-            <p>写完博客，开开心心地准备本地测试，在浏览器输入<strong><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></strong>却看到一堆乱码，这可怎么办？</p>
+          <p>写完博客，开开心心地准备本地测试，在浏览器输入<strong><a href="http://localhost:4000">http://localhost:4000</a></strong>却看到一堆乱码，这可怎么办？</p>
 <p>本文讲述的是一种非常简单的处理方式。</p>
-<p>1.用记事本打开本地的md文档；</p>
-<p>2.点“另存为”，在下方有“编码(E)”字样，选择<strong>“UTF-8”</strong>；</p>
-<p>3.点击“保存”，出现是否替换原文件，选择“是”</p>
-<p>4.重新进行本地测试和部署，问题解决。</p>
-<p>参考：<a href="http://blog.csdn.net/jiluben/article/details/40656935" target="_blank" rel="external">http://blog.csdn.net/jiluben/article/details/40656935</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/29/luanma/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1026,18 +958,16 @@
 
       
         
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+          <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/28/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
