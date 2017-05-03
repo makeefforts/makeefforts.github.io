@@ -1,0 +1,822 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="知识点,JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="JS阻塞问题
+JS具有阻塞特性，当浏览器在执行js代码时，不能同时做其它事情，即script每次出现都会让页面等待脚本的解析和执行（不论JS是内嵌的还是外链的），JS代码执行完成后，才继续渲染页面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS阻塞问题">
+<meta property="og:url" content="http://yoursite.com/2017/04/08/JS阻塞问题/index.html">
+<meta property="og:site_name" content="做最好的自己">
+<meta property="og:description" content="JS阻塞问题
+JS具有阻塞特性，当浏览器在执行js代码时，不能同时做其它事情，即script每次出现都会让页面等待脚本的解析和执行（不论JS是内嵌的还是外链的），JS代码执行完成后，才继续渲染页面。">
+<meta property="og:updated_time" content="2017-05-03T15:02:08.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS阻塞问题">
+<meta name="twitter:description" content="JS阻塞问题
+JS具有阻塞特性，当浏览器在执行js代码时，不能同时做其它事情，即script每次出现都会让页面等待脚本的解析和执行（不论JS是内嵌的还是外链的），JS代码执行完成后，才继续渲染页面。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/08/JS阻塞问题/"/>
+
+
+
+
+
+  <title> JS阻塞问题 | 做最好的自己 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">做最好的自己</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/JS阻塞问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiRuifang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="做最好的自己">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JS阻塞问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-08T22:23:12+08:00">
+                2017-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://www.cnblogs.com/MeteorSeed/articles/2283629.html" target="_blank" rel="external">JS阻塞问题</a></p>
+<p>JS具有阻塞特性，当浏览器在执行js代码时，不能同时做其它事情，即script每次出现都会让页面等待脚本的解析和执行（不论JS是内嵌的还是外链的），JS代码执行完成后，才继续渲染页面。 <a id="more"></a>  </p>
+<h4 id="1-优化脚本位置"><a href="#1-优化脚本位置" class="headerlink" title="1 优化脚本位置"></a>1 优化脚本位置</h4><p>浏览器在继续到body之前，不会渲染页面，所以，把JS放在head中，会导致延迟。</p>
+<p>为了提高用户体验，新一代浏览器都支持并行下载JS，但是JS下载仍然会阻塞其他资源的下载，比如图片。尽管脚本的下载过程并不会相互影响，但是页面仍然必须等待所有JS下载并执行完成才能继续。因此，<strong>所有script应该尽可能放到body的底部，以减少对页面下载的影响。</strong></p>
+<p>注意：CSS文件本身是并行下载，不会阻塞页面的其他进程。但是，如果把一段内嵌脚本放在引用外链CSS&lt;link之后会导致页面阻塞去等待CSS的下载。这样做是为了确保内嵌脚本在执行时能够获得正确的样式信息。所以，<strong>最好不要把内嵌脚本放在CSS的link之后。</strong></p>
+<h4 id="2-减少外链脚本数量以改善性能"><a href="#2-减少外链脚本数量以改善性能" class="headerlink" title="2 减少外链脚本数量以改善性能"></a>2 减少外链脚本数量以改善性能</h4><p>原因很简单，额外的HTTP请求会带来额外的开销，所以减少页面中外链脚本的数量，有助于改善性能。</p>
+<h4 id="3-使用无阻塞下载JS方法"><a href="#3-使用无阻塞下载JS方法" class="headerlink" title="3 使用无阻塞下载JS方法"></a>3 使用无阻塞下载JS方法</h4><p>无阻塞脚本的秘诀在于，在页面加载完成后才加载JS，即在window对象的load事件触发后再下载脚本。</p>
+<h5 id="3-1-使用script的defer属性（仅IE和Firefox3-5以上）"><a href="#3-1-使用script的defer属性（仅IE和Firefox3-5以上）" class="headerlink" title="3.1 使用script的defer属性（仅IE和Firefox3.5以上）"></a>3.1 使用script的defer属性（仅IE和Firefox3.5以上）</h5><p>defer属性指明本元素所含的脚本不会修改DOM，因此代码能安全的延迟执行。defer属性的script，对应的JS文件将在页面解析到script时开始下载，但并不会执行，直到DOM加载完成，即onload事件触发前被调用。当一个带有defer属性的JS文件下载时，他不会阻塞浏览器的其它进程，因此这类文件可以与页面中的其他资源并行下载。</p>
+<h5 id="3-2-使用动态创建的script元素来下载并执行代码"><a href="#3-2-使用动态创建的script元素来下载并执行代码" class="headerlink" title="3.2 使用动态创建的script元素来下载并执行代码"></a>3.2 使用动态创建的script元素来下载并执行代码</h5><p>文件在该元素被添加到页面时开始下载。这种技术的重点在于：无论在何时启动下载，文件的下载与执行不会阻塞页面的其他进程。使用动态脚本节点下载文件时，根据浏览器不同，多数浏览器，返回的代码会立即执行（Firefox、Opera，会等待此前所有动态节点执行完毕）。当脚本”自执行“时，这种机制运行正常，但是当代码内只包含供其它脚本调用的接口时，就必须确保脚本下载完成并准备就绪，在上例中列举了不同浏览器的验证方法。</p>
+<p>之所以动态创建script元素去加载JavaScript文件，不会对页面其余操作影响，原因如下：</p>
+<p>　　1、html解析器将script当做了dom元素，而不是script标签，所以就不对其进行诸如加载、解析、运行时，停止页面中一切行为。打了个擦边球。</p>
+<p>　　2、JavaScript是单线程，且与UI线程共享同一个线程，但这不代表浏览器就只有一个线程。所以在执行JavaScript代码时，不影响图片之类的下载。</p>
+<h5 id="3-3-使用XHR对象下载JS代码并注入页面中"><a href="#3-3-使用XHR对象下载JS代码并注入页面中" class="headerlink" title="3.3 使用XHR对象下载JS代码并注入页面中"></a>3.3 使用XHR对象下载JS代码并注入页面中</h5><p>这种方法的优点是，你可以下载JS代码但不立即执行。由于代码是在script标签之外返回的，因此它下载后不会自动执行，这使得你可以把脚本的执行推迟到你准备好的时候。另一个优点是，同样的代码在所有主流浏览器中都能正常工作。</p>
+<p>这种方法的主要局限性是JS文件必须与所有请求的页面处于<strong>相同的域</strong>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/知识点/" rel="tag"># 知识点</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/06/Javascript定义类（class）的三种方法--阮一峰/" rel="next" title="Javascript定义类（class）的三种方法--阮一峰">
+                <i class="fa fa-chevron-left"></i> Javascript定义类（class）的三种方法--阮一峰
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/09/CDN（Content Delivery Network，内容分发网络）/" rel="prev" title="CDN（Content Delivery Network，内容分发网络）">
+                CDN（Content Delivery Network，内容分发网络） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="LiRuifang" />
+          <p class="site-author-name" itemprop="name">LiRuifang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/makeefforts" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2656650574?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/6b51f627d1d8" title="个人简书" target="_blank">个人简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰" target="_blank">阮一峰</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-优化脚本位置"><span class="nav-number">1.</span> <span class="nav-text">1 优化脚本位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-减少外链脚本数量以改善性能"><span class="nav-number">2.</span> <span class="nav-text">2 减少外链脚本数量以改善性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-使用无阻塞下载JS方法"><span class="nav-number">3.</span> <span class="nav-text">3 使用无阻塞下载JS方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-使用script的defer属性（仅IE和Firefox3-5以上）"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 使用script的defer属性（仅IE和Firefox3.5以上）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-使用动态创建的script元素来下载并执行代码"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 使用动态创建的script元素来下载并执行代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-使用XHR对象下载JS代码并注入页面中"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 使用XHR对象下载JS代码并注入页面中</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiRuifang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
