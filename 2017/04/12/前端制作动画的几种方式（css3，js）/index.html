@@ -1,0 +1,856 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="知识点,动画," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="制作动态的网页是是前端工程师必备的技能，很好的实现动画能够极大的提高用户体验，增强交互效果，那么动画有多少实现方式，一直对此有选择恐惧症的我就总结一下，以便在开发的时候选择最好的实现方式。
+1.css的transition。语法：1transition: property duration timing-function delay;
+
+property: 填写需要变化的css属性,如：width">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端制作动画的几种方式（css3，js）">
+<meta property="og:url" content="http://yoursite.com/2017/04/12/前端制作动画的几种方式（css3，js）/index.html">
+<meta property="og:site_name" content="做最好的自己">
+<meta property="og:description" content="制作动态的网页是是前端工程师必备的技能，很好的实现动画能够极大的提高用户体验，增强交互效果，那么动画有多少实现方式，一直对此有选择恐惧症的我就总结一下，以便在开发的时候选择最好的实现方式。
+1.css的transition。语法：1transition: property duration timing-function delay;
+
+property: 填写需要变化的css属性,如：width">
+<meta property="og:updated_time" content="2017-05-04T12:26:31.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端制作动画的几种方式（css3，js）">
+<meta name="twitter:description" content="制作动态的网页是是前端工程师必备的技能，很好的实现动画能够极大的提高用户体验，增强交互效果，那么动画有多少实现方式，一直对此有选择恐惧症的我就总结一下，以便在开发的时候选择最好的实现方式。
+1.css的transition。语法：1transition: property duration timing-function delay;
+
+property: 填写需要变化的css属性,如：width">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/12/前端制作动画的几种方式（css3，js）/"/>
+
+
+
+
+
+  <title> 前端制作动画的几种方式（css3，js） | 做最好的自己 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">做最好的自己</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/前端制作动画的几种方式（css3，js）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiRuifang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="做最好的自己">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                前端制作动画的几种方式（css3，js）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T22:13:30+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/CSS/CSS3/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>制作动态的网页是是前端工程师必备的技能，很好的实现动画能够极大的提高用户体验，增强交互效果，那么动画有多少实现方式，一直对此有选择恐惧症的我就总结一下，以便在开发的时候选择最好的实现方式。</p>
+<h3 id="1-css的transition。"><a href="#1-css的transition。" class="headerlink" title="1.css的transition。"></a>1.css的transition。</h3><p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">transition: property duration timing-function delay;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>property:</strong> 填写需要变化的css属性,如：width,line-height,font-size,color等;</li>
+<li><strong>duration:</strong> 完成过渡效果需要的时间（2s 或者2000ms）</li>
+<li><p><strong>timing-function:</strong> 完成效果的速度曲线（linear,ease,ease-in,ease-out等等），值描述:</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1.linear匀速（等于 cubic-bezier(0,0,1,1)）。</div><div class="line">2.ease从慢到快再到慢（cubic-bezier(0.25,0.1,0.25,1)）。</div><div class="line">3.ease-in慢慢变快（等于 cubic-bezier(0.42,0,1,1)）。</div><div class="line">4.ease-out慢慢变慢（等于 cubic-bezier(0,0,0.58,1)）。</div><div class="line">5.ease-in-out先变快再到慢（等于 cubic-bezier(0.42,0,0.58,1)）。渐显渐隐效果</div><div class="line">6.cubic-bezier(n,n,n,n)在 cubic-bezier 函数中定义自己的值。可能的值是 0 至 1 之间的数值。</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>timing-delay:</strong> 动画效果的延迟触发时间（2s 或者2000ms）。</p>
+</li>
+</ul>
+<p>默认值分别为：all 0 ease 0 </p>
+<p><strong>transition</strong>抓住了所设置变化属性的起始态和完成态，通过设定的速度曲线来完成动画。</p>
+<p>可以涉及到各种变化的css属性，默认为all，则所有变化的属性都会在出发时，以动画的形式展现出来。</p>
+<p>这种动画方式是css3的，因此ie9以下是不支持的，其他的浏览器需要加前缀，并且只有两态，不支持自定义中间的状态。</p>
+<p>例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt; </div><div class="line">div</div><div class="line">&#123;</div><div class="line">width:100px;</div><div class="line">height:100px;</div><div class="line">background:red;</div><div class="line">transition:width 2s;</div><div class="line">-moz-transition:width 2s; /* Firefox 4 */</div><div class="line">-webkit-transition:width 2s; /* Safari and Chrome */</div><div class="line">-o-transition:width 2s; /* Opera */</div><div class="line">&#125;</div><div class="line">  </div><div class="line">div:hover</div><div class="line">&#123;</div><div class="line">width:300px;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;div&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>tips：transform是一种变化属性，该属性允许我们对元素进行旋转、缩放、移动或倾斜。可以作为transition中需要变化的属性。<br>　　　前缀：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　　　　　transform:rotate(9deg);</div><div class="line">　　　　　　-ms-transform:rotate(9deg); /* Internet Explorer */</div><div class="line">　　　　　　-moz-transform:rotate(9deg); /* Firefox */</div><div class="line">　　　　　　-webkit-transform:rotate(9deg); /* Safari 和 Chrome */</div><div class="line">　　　　　　-o-transform:rotate(9deg); /* Opera */</div></pre></td></tr></table></figure></p>
+<h3 id="2-css3的animation属性"><a href="#2-css3的animation属性" class="headerlink" title="2.css3的animation属性"></a>2.css3的animation属性</h3><p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">animation: name duration timing-function delay iteration-count direction;</div><div class="line"></div><div class="line">name:keyframe的名称，也就是定义了关键帧的动画的名称,这个名称用来区别不同的动画。</div><div class="line">duration:完成动画所需要的时间（2s 或者 2000ms）</div><div class="line">timing-function:完成动画的速度曲线</div><div class="line">delay：动画开始之前的延迟</div><div class="line">iteration-count：动画播放次数</div><div class="line">direction：是否轮流反向播放动画（normal:正常顺序播放，alternate下一次反向播放）如果把动画设置为只播放一次，则该属性没有效果。</div></pre></td></tr></table></figure></p>
+<p>使用animation属性制作动画可以更加灵活的设置动画帧，通过不同keyframe（动画帧）的设置，实现很多优雅的效果，keyframe中的百分数是动画完成总时间的比例。</p>
+<p>animation是设置总的动画效果，而keyframe中设置上相应的动画名字，然后在keyframe中设置具体的动画效果。当然由于是css3的属性，仍然需要注意它的兼容性，加上必须的前缀。</p>
+<p>例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt; </div><div class="line">div</div><div class="line">&#123;</div><div class="line">    width:100px;</div><div class="line">    height:100px;</div><div class="line">    background:red;</div><div class="line">    position:relative;</div><div class="line">    animation:mymove 5s infinite;</div><div class="line">    -webkit-animation:mymove 5s infinite; /*Safari and Chrome*/</div><div class="line">&#125;</div><div class="line"> </div><div class="line">@keyframes mymove</div><div class="line">&#123;</div><div class="line">    1% &#123;left:0px;&#125;</div><div class="line">    20%&#123;left:200px;&#125;</div><div class="line">    50% &#123;left:300px;&#125;</div><div class="line">    100%&#123;left:200px;&#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">@-webkit-keyframes mymove /*Safari and Chrome*/</div><div class="line">&#123;</div><div class="line">    1% &#123;left:0px;&#125;</div><div class="line">    20%&#123;left:200px;&#125;</div><div class="line">    50% &#123;left:300px;&#125;</div><div class="line">    100%&#123;left:200px;&#125;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div><div class="line"> </div><div class="line">&lt;div&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="3-Jquery的animate函数"><a href="#3-Jquery的animate函数" class="headerlink" title="3.Jquery的animate函数"></a>3.Jquery的animate函数</h3><p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(selector).animate(styles,options)</div><div class="line"></div><div class="line">styles:产生动画的css样式和值；</div><div class="line">options=&#123;</div><div class="line">   speed:动画的速度（可选参数：slow,normal,fase）</div><div class="line">   easing：动画的速度函数（可选参数：swing，linear）</div><div class="line">   callback：动画完成之后要执行的函数；</div><div class="line">   queue：是否放置在效果队列中，是布尔值，为false则立即开始</div><div class="line">   specialEasing:styles参数的一个或多个属性映射及对应的easing函数。&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(myElement).animate(&#123;</div><div class="line">       left: 500,</div><div class="line">       top: 200</div><div class="line">&#125;, &#123;&lt;br&gt;&lt;br&gt;　　　　duration:&apos;3000&apos;,</div><div class="line">       specialEasing: &#123;</div><div class="line">            left: &apos;swing&apos;,</div><div class="line">            top: &apos;linear&apos;</div><div class="line">        &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。</p>
+<p>只有数字值可创建动画（比如 “margin:30px”）。字符串值无法创建动画（比如 “background-color:red”）。<br>可以使用的属性有：（使用比如 “fontSize”来设置，而非 CSS 名称（比如 “font-size”））<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">backgroundPosition，borderWidth，borderBottomWidth，borderLeftWidth</div><div class="line">borderRightWidth，borderTopWidth，borderSpacing</div><div class="line">margin，marginBottom，marginLeft，marginRight，marginTop</div><div class="line">outlineWidth</div><div class="line">padding，paddingBottom，paddingLeft，paddingRight，paddingTop</div><div class="line">height，width</div><div class="line">maxHeight，maxWidth，minHeight，minWidth</div><div class="line">font，fontSize</div><div class="line">bottom，left，right，top</div><div class="line">letterSpacing，wordSpacing，lineHeight，textIndent</div></pre></td></tr></table></figure></p>
+<p>可见通过jquery的animation生成动画的过程中可同时使用多个属性，也可以定义相对值（该值相对于元素的当前值）。需要在值的前面加上 += 或 -=，如（height:’+=150px’），还可以使用队列机制进行步骤式的动画如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">div.animate(&#123;height:&apos;300px&apos;,opacity:&apos;0.4&apos;&#125;,&quot;slow&quot;);</div><div class="line">div.animate(&#123;width:&apos;300px&apos;,opacity:&apos;0.8&apos;&#125;,&quot;slow&quot;);</div><div class="line">div.animate(&#123;height:&apos;100px&apos;,opacity:&apos;0.4&apos;&#125;,&quot;slow&quot;);</div><div class="line">div.animate(&#123;width:&apos;100px&apos;,opacity:&apos;0.8&apos;&#125;,&quot;slow&quot;);</div></pre></td></tr></table></figure>
+<p>动画就会按照顺序一步一步实现，并且不用考虑兼容性，因为几乎都兼容。　</p>
+<p>但是，animate函数只能够实现一些数值属性，能够实现的变化非常有限制，而且使用这个函数时还要配合stop来使用，在达到某条件时终止动画，设置比较复杂。</p>
+<h3 id="4-原生js动画"><a href="#4-原生js动画" class="headerlink" title="4.原生js动画"></a>4.原生js动画</h3><p> 原生js动画利用js代码，将动画一步以函数的方式写出来，可以实现多种动画样式，而且可以自己做兼容性处理，自己设立每一步的动画效果，并且能够完成比较复杂的效果，但是代码量很大。如下面的例子：需要自己定义所有的动态函数，并进行计算、判断和处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;odiv&quot; class=&quot;odiv&quot;&gt;</div><div class="line">     &lt;div id=&quot;sdiv&quot; class=&quot;sdiv&quot;&gt;</div><div class="line">     &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"> </div><div class="line">&lt;script language=&quot;javascript&quot;&gt;</div><div class="line">window.onload = function()&#123;</div><div class="line">     var odiv = document.getElementById(&apos;odiv&apos;);</div><div class="line">     odiv.onmouseover = function()&#123;</div><div class="line">      startMover(0);</div><div class="line"> &#125;</div><div class="line"> odiv.onmouseout = function()&#123;</div><div class="line">      startMover(-200);</div><div class="line"> &#125;</div><div class="line">&#125;</div><div class="line">var timer = null;</div><div class="line">function startMover(a)&#123;//速度和目标值</div><div class="line">     clearInterval(timer);//执行当前动画同时清除之前的动画</div><div class="line">     var odiv = document.getElementById(&apos;odiv&apos;);</div><div class="line"> timer = setInterval(function()&#123;</div><div class="line">     var speed = (a-odiv.offsetLeft)/10;//缓冲动画的速度参数变化值</div><div class="line"> //如果速度是大于0，说明是向右走，那么就向上取整</div><div class="line">     speed = speed&gt;0?Math.ceil(speed):Math.floor(speed);</div><div class="line"> //Math.floor();向下取整</div><div class="line">     if(odiv.offsetLeft == a)&#123;</div><div class="line">      clearInterval(timer);</div><div class="line">     &#125;</div><div class="line"> else&#123;</div><div class="line">      odiv.style.left = odiv.offsetLeft+speed+&apos;px&apos;;</div><div class="line">  &#125;</div><div class="line"> &#125;,30);</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="5-插件"><a href="#5-插件" class="headerlink" title="5.插件"></a>5.插件</h3><p>网上可以搜到很多封装好的动画插件，这些插件可以直接引入到页面中，通过初试话和配置的方式进行设定，直接在页面中展示动画。<br>如：waves，textillate.js等等。</p>
+<h3 id="6-使用canvas制作动画"><a href="#6-使用canvas制作动画" class="headerlink" title="6.使用canvas制作动画"></a>6.使用canvas制作动画</h3><p>我们还可以使用canvas在浏览器上画图，并且利用其api，制作动画。canvas使用的地方非常多，尤其是在制作h5小游戏上。</p>
+<p>同样都是使用编码的方式由前端开发工程师完成动画效果，canvas要比原生js效率高的多，流畅的多。通过画笔的方式，能够轻松的实现更多的动画效果。</p>
+<h3 id="7-引用gif图片"><a href="#7-引用gif图片" class="headerlink" title="7.引用gif图片"></a>7.引用gif图片</h3><p>如果在需求特别紧急，而且动画又特别复杂的情况下，自己没有把握按时实现效果，或者代价太大，真的，别犹豫，上gif图片吧.</p>
+<h3 id="8-requestAnimationFrame"><a href="#8-requestAnimationFrame" class="headerlink" title="8.requestAnimationFrame"></a>8.<a href="http://blog.csdn.net/fanhu6816/article/details/51979981" target="_blank" rel="external">requestAnimationFrame</a></h3><h3 id="9-SVG（可缩放矢量图形）"><a href="#9-SVG（可缩放矢量图形）" class="headerlink" title="9.SVG（可缩放矢量图形）"></a>9.SVG（可缩放矢量图形）</h3>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/知识点/" rel="tag"># 知识点</a>
+          
+            <a href="/tags/动画/" rel="tag"># 动画</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/09/CDN（Content Delivery Network，内容分发网络）/" rel="next" title="CDN（Content Delivery Network，内容分发网络）">
+                <i class="fa fa-chevron-left"></i> CDN（Content Delivery Network，内容分发网络）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="LiRuifang" />
+          <p class="site-author-name" itemprop="name">LiRuifang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/makeefforts" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2656650574?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/6b51f627d1d8" title="个人简书" target="_blank">个人简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰" target="_blank">阮一峰</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-css的transition。"><span class="nav-number">1.</span> <span class="nav-text">1.css的transition。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-css3的animation属性"><span class="nav-number">2.</span> <span class="nav-text">2.css3的animation属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Jquery的animate函数"><span class="nav-number">3.</span> <span class="nav-text">3.Jquery的animate函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-原生js动画"><span class="nav-number">4.</span> <span class="nav-text">4.原生js动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-插件"><span class="nav-number">5.</span> <span class="nav-text">5.插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-使用canvas制作动画"><span class="nav-number">6.</span> <span class="nav-text">6.使用canvas制作动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-引用gif图片"><span class="nav-number">7.</span> <span class="nav-text">7.引用gif图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-requestAnimationFrame"><span class="nav-number">8.</span> <span class="nav-text">8.requestAnimationFrame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SVG（可缩放矢量图形）"><span class="nav-number">9.</span> <span class="nav-text">9.SVG（可缩放矢量图形）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiRuifang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
