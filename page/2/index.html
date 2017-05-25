@@ -588,7 +588,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/前端制作动画的几种方式（css3，js）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/14/如何进行网站优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LiRuifang">
@@ -610,8 +610,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/12/前端制作动画的几种方式（css3，js）/" itemprop="url">
-                  前端制作动画的几种方式（css3，js）
+                <a class="post-title-link" href="/2017/04/14/如何进行网站优化/" itemprop="url">
+                  如何进行网站优化
                 </a>
               
             
@@ -627,8 +627,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T22:13:30+08:00">
-                2017-04-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-14T22:13:30+08:00">
+                2017-04-14
               </time>
             
 
@@ -661,8 +661,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识点/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/知识点/实战/" itemprop="url" rel="index">
+                    <span itemprop="name">实战</span>
                   </a>
                 </span>
 
@@ -672,8 +672,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识点/CSS/CSS3/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS3</span>
+                  <a href="/categories/知识点/实战/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
                   </a>
                 </span>
 
@@ -708,15 +708,13 @@
 
       
         
-          <p>制作动态的网页是是前端工程师必备的技能，很好的实现动画能够极大的提高用户体验，增强交互效果，那么动画有多少实现方式，一直对此有选择恐惧症的我就总结一下，以便在开发的时候选择最好的实现方式。</p>
-<h3 id="1-css的transition。"><a href="#1-css的transition。" class="headerlink" title="1.css的transition。"></a>1.css的transition。</h3><p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">transition: property duration timing-function delay;</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/12/前端制作动画的几种方式（css3，js）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="content方面"><a href="#content方面" class="headerlink" title="content方面"></a>content方面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">减少HTTP请求：合并文件、CSS精灵、inline Image</div><div class="line">减少DNS查询：DNS查询完成之前浏览器不能从这个主机下载任何任何文件。方法：DNS缓存、将资源分布到恰当数量的主机名，平衡并行下载和DNS查询</div><div class="line">避免重定向：多余的中间访问</div><div class="line">使Ajax可缓存</div><div class="line">非必须组件延迟加载</div><div class="line">未来所需组件预加载</div><div class="line">减少DOM元素数量</div><div class="line">将资源放到不同的域下：浏览器同时从一个域下载资源的数目有限，增加域可以提高并行下载量</div><div class="line">减少iframe数量</div><div class="line">不要404</div></pre></td></tr></table></figure>
+<h3 id="Server方面"><a href="#Server方面" class="headerlink" title="Server方面"></a>Server方面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">使用CDN</div><div class="line">添加Expires或者Cache-Control响应头</div><div class="line">对组件使用Gzip压缩</div><div class="line">配置ETag</div><div class="line">Flush Buffer Early</div><div class="line">Ajax使用GET进行请求</div><div class="line">避免空src的img标签</div><div class="line">Cookie方面</div><div class="line">减小cookie大小</div><div class="line">引入资源的域名不要包含cookie</div><div class="line">css方面</div><div class="line">将样式表放到页面顶部</div><div class="line">不使用CSS表达式</div><div class="line">使用不使用@import</div><div class="line">不使用IE的Filter</div><div class="line">Javascript方面</div><div class="line">将脚本放到页面底部</div><div class="line">将javascript和css从外部引入</div><div class="line">压缩javascript和css</div><div class="line">删除不需要的脚本</div><div class="line">减少DOM访问</div><div class="line">合理设计事件监听器</div></pre></td></tr></table></figure>
+<h3 id="图片方面"><a href="#图片方面" class="headerlink" title="图片方面"></a>图片方面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">优化图片：根据实际颜色需要选择色深、压缩</div><div class="line">优化css精灵</div><div class="line">不要在HTML中拉伸图片</div><div class="line">保证favicon.ico小并且可缓存</div></pre></td></tr></table></figure>
+<h3 id="移动方面"><a href="#移动方面" class="headerlink" title="移动方面"></a>移动方面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">保证组件小于25k</div><div class="line">Pack Components into a Multipart Document</div></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -798,7 +796,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -809,7 +807,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -820,7 +818,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
