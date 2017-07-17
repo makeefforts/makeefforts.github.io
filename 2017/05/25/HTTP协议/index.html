@@ -1,0 +1,911 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="知识点,计算机网络," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="https://developer.mozilla.org/zh-CN/docs/Web/HTTP
+HTTP概述
+
+
+http协议(超文本传输协议HyperText Transfer Protocol)，是一个基于请求/响应模式的、无状态的协议，也就是说，客户端与服务端连接之后，客户端向服务端发送一个请求，服务端返回响应消息之后，双方的链接就会被关闭。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP协议">
+<meta property="og:url" content="http://yoursite.com/2017/05/25/HTTP协议/index.html">
+<meta property="og:site_name" content="做最好的自己">
+<meta property="og:description" content="https://developer.mozilla.org/zh-CN/docs/Web/HTTP
+HTTP概述
+
+
+http协议(超文本传输协议HyperText Transfer Protocol)，是一个基于请求/响应模式的、无状态的协议，也就是说，客户端与服务端连接之后，客户端向服务端发送一个请求，服务端返回响应消息之后，双方的链接就会被关闭。">
+<meta property="og:updated_time" content="2017-07-17T13:30:22.198Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP协议">
+<meta name="twitter:description" content="https://developer.mozilla.org/zh-CN/docs/Web/HTTP
+HTTP概述
+
+
+http协议(超文本传输协议HyperText Transfer Protocol)，是一个基于请求/响应模式的、无状态的协议，也就是说，客户端与服务端连接之后，客户端向服务端发送一个请求，服务端返回响应消息之后，双方的链接就会被关闭。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/25/HTTP协议/"/>
+
+
+
+
+
+  <title> HTTP协议 | 做最好的自己 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">做最好的自己</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/25/HTTP协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiRuifang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="做最好的自己">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTTP协议
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-25T20:14:00+08:00">
+                2017-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/HTTP</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview" target="_blank" rel="external">HTTP概述</a></p>
+<blockquote>
+<ul>
+<li>http协议(超文本传输协议HyperText Transfer Protocol)，是一个<strong>基于请求/响应模式的、无状态的协议</strong>，也就是说，客户端与服务端连接之后，客户端向服务端发送一个请求，服务端返回响应消息之后，双方的链接就会被关闭。 <a id="more"></a> <strong>HTTP是基于传输层的TCP协议的应用层传输协议</strong>，是面向连接的协议。默认情况下，客户端与web服务端上80端口监听的服务器程序建立TCP连接。简单来说就是客户端和服务端进行数据传输的一种规则。</li>
+<li>HTTP是一种能够获取如HTML这样网络资源的协议。它是Web上数据交换的基础，是一种<code>client-server</code>协议，也就是说请求通常是由像浏览器这样的接受方发起的。</li>
+<li>客户端<ul>
+<li>通常为浏览器实体</li>
+<li>什么是超文本文档?</li>
+</ul>
+</li>
+<li>web服务器</li>
+<li>Proxies<h4 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h4></li>
+<li>URI（统一资源标识符）纯粹是一种符号结构，用于指定构成Web资源的字符串的各个不同部分。</li>
+<li>URL（统一资源定位符）是一种特殊的URI，包含了用于查找某个资源的足够信息。</li>
+</ul>
+</blockquote>
+<ul>
+<li>URI是一种语义上的抽象概念，可以是绝对的，也可以是相对的，而URL则必须提供足够的信息来定位，所以，是绝对的，而通常说的relative URL，则是针对另一个absolute URL，本质上还是绝对的。</li>
+</ul>
+<p>HTTP的基本性质</p>
+<ul>
+<li>简单的</li>
+<li>可扩展的</li>
+<li>无状态, 有会话<ul>
+<li>带来了一个问题，怎么保持登陆状态?</li>
+<li>用HTTP的头部扩展，HTTP <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="external">Cookies</a> 就可以解决这个问题。把Cookies添加到头部中，创建一个<code>会话</code>来让每次请求都能共享相同的上下文信息，相同的状态。</li>
+</ul>
+</li>
+<li>怎么建立一个<code>可靠</code>的连接?<ul>
+<li>面向链接的<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">TCP</a>, 而不是面向数据的<a href="https://zh.wikipedia.org/wiki/%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">UDP</a></li>
+<li><a href="http://www.cricode.com/1880.html" target="_blank" rel="external">TCP为什么是三次握手?而不是两次或者四次?</a></li>
+</ul>
+</li>
+</ul>
+<p>HTTP能控制什么?</p>
+<ul>
+<li>缓存</li>
+<li>开放同源限制</li>
+<li>认证</li>
+<li>代理</li>
+<li>会话</li>
+</ul>
+<p>HTTP流</p>
+<ul>
+<li>建立TCP链接</li>
+<li>发送一个报文</li>
+<li>读取服务端返回报文</li>
+<li>关闭TCP链接<h4 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h4></li>
+<li>http请求由请求行，消息报头，请求正文三部分构成；</li>
+<li>请求行：请求方法，URL字段(请求地址)和HTTP协议版本(所遵循的HTTP协议版本)三部分构成，以空格隔开；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">请求方式：</div><div class="line">GET：请求获取request-URI所标识的资源；</div><div class="line">POST：在request-URI所标识的资源后附加新的数据；</div><div class="line">HEAD：请求获取由request-URI所标识的资源的响应消息报头；</div><div class="line">PUT：请求服务器存储一个资源，并由request-URI作为标识；</div><div class="line">DELEATE：请求服务器删除request-URI所标识的资源；</div><div class="line">TRACE：请求服务器回送收到的请求信息，主要用于测试或诊断；</div><div class="line">CONNECT：保留将来用，304跳转</div><div class="line">OPTIONS：请求查询服务器的性能，或者查询与资源相关的选项或需求。</div></pre></td></tr></table></figure>
+<ul>
+<li>消息报头：消息报头由一系列的键值对组成，允许客户端向服务器端发送一些附加信息或者客户端自身的信息；</li>
+<li>请求正文：只有在发送post请求时才会有请求正文，get方法并没有请求正文。类似于：name=XXX&amp;pwd=XXX的内容。<h4 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h4></li>
+<li>http响应也由三部分组成，包括状态行，消息报头，响应正文</li>
+<li>状态行也由三部分组成，包括HTTP协议的版本，请求结果即状态码，还有对状态码的文本描述；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">状态码：</div><div class="line">状态代码有3位数字组成，状态描述给出了状态代码简短的描述。状态码第一个数字定义了响应的类别，有五种可能取值：</div><div class="line">1xx　　：　　指示信息–表示请求已接收，继续处理</div><div class="line">2xx　　：　　成功–表示请求已被成功接收、理解、接受</div><div class="line">3xx　　：　　重定向–要完成请求必须进行更进一步的操作</div><div class="line">4xx　　：　　客户端错误–请求有语法错误或请求无法实现</div><div class="line">5xx　　：　　服务器端错误–服务器未能实现合法的请求</div></pre></td></tr></table></figure>
+<ul>
+<li>消息报头：响应报头允许服务器传递不能放在状态行中的附加响应信息，以及关于服务器的信息和对Request-URI所标识的资源进行下一步访问的信息。</li>
+<li>响应正文：就是服务器返回的资源的内容，即整个html文件。</li>
+</ul>
+<p><a href="https://segmentfault.com/a/1190000004457479" target="_blank" rel="external">HTTP报文</a></p>
+<p>请求头</p>
+<ul>
+<li>method 要获取资源的路径 协议版本</li>
+<li>headers<ul>
+<li><a href="http://www.10tiao.com/html/357/201611/2247484671/1.html" target="_blank" rel="external">http://www.10tiao.com/html/357/201611/2247484671/1.html</a></li>
+<li><a href="http://homeway.me/2015/07/19/understand-http-about-content-type/" target="_blank" rel="external">content-type</a></li>
+</ul>
+</li>
+</ul>
+<p>响应头</p>
+<ul>
+<li>协议版本 <a href="http://www.runoob.com/http/http-status-codes.html" target="_blank" rel="external">状态码</a> 状态消息</li>
+<li>headers</li>
+</ul>
+<p><a href="http://www.cricode.com/1880.html" target="_blank" rel="external">Http协议详细总结</a></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>为什么只常用get, post?</li>
+<li><a href="http://www.runoob.com/tags/html-httpmethods.html" target="_blank" rel="external">GET, POST的区别</a>, <a href="https://mp.weixin.qq.com/s?__biz=MzI3NzIzMzg3Mw==&amp;mid=100000054&amp;idx=1&amp;sn=71f6c214f3833d9ca20b9f7dcd9d33e4#rd" target="_blank" rel="external">本质上一样</a></li>
+<li>HTTP, HTTPS, HTTP2</li>
+<li><a href="https://www.zhihu.com/question/39541968" target="_blank" rel="external">TCP/IP、Http、Socket的区别</a></li>
+</ol>
+<p>OSI七层和TCP/IP五层模型?</p>
+<ul>
+<li>应用层</li>
+<li>传输层</li>
+<li>网络层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/知识点/" rel="tag"># 知识点</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/17/this，作用域，上下文环境/" rel="next" title="this，作用域，上下文环境">
+                <i class="fa fa-chevron-left"></i> this，作用域，上下文环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/27/消息报头/" rel="prev" title="消息报头">
+                消息报头 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="LiRuifang" />
+          <p class="site-author-name" itemprop="name">LiRuifang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/makeefforts" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2656650574?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/u/6b51f627d1d8" title="个人简书" target="_blank">个人简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰" target="_blank">阮一峰</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#URI和URL"><span class="nav-number">1.</span> <span class="nav-text">URI和URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP请求"><span class="nav-number">2.</span> <span class="nav-text">HTTP请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP响应"><span class="nav-number">3.</span> <span class="nav-text">HTTP响应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number"></span> <span class="nav-text">问题</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiRuifang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
